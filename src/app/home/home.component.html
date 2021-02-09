@@ -1,0 +1,79 @@
+<div class="jumbotron" style="background-color: #fff; height: calc(95vh);">
+  <h1>DocDesign<sup>v2.0</sup></h1>
+  <p class="lead">
+    Automated Database Design for Document Stores
+  </p>
+<!--  <ngb-datepicker #d></ngb-datepicker>-->
+<!--  <a class="btn btn-lg btn-primary" href="" role="button">View tutorial</a>-->
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Please wait .... </p></ngx-spinner>
+<div class="row">
+  <div class="col-3">
+    <h5>Select Objective Weights</h5>
+    <ng-template ngFor let-hero [ngForOf]="x" let-i="index"  >
+  <span style="float: left">{{hero.obj1}}</span> <span style="float: right">{{hero.obj2}}</span>
+      <ngx-slider [(value)]=hero.val [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ngx-slider>
+</ng-template>
+  </div>
+  <div class="col-2">
+<!--     <h5>Select Objective Weights</h5>-->
+ <div *ngFor="let item of map | keyvalue">
+      <label style= "font-weight:bold; padding-top: 20px">{{item.key}}</label> <br/>
+      <input  pattern="^0(?:\.\d{1,3})?$" value="{{item.value |  number:'1.2-3'}}" style="display:table-cell; width:100%; " >
+<!--    <ngx-slider [(value)]=item.value [options]="options" ></ngx-slider>-->
+    </div>
+  </div>
+  <div class="col-3">
+    <form [formGroup]="myForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="file">Entity-Relationships</label>
+      <input
+        formControlName="file"
+            id="file"
+            type="file"
+            class="form-control"
+            (change)="onFileChange($event)">
+        <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">Entity Relationships is required.</div>
+        </div>
+    </div>
+
+
+<div class="form-group">
+      <label for="file2">Query Workload</label>
+      <input
+            id="file2"
+            type="file"
+            class="form-control"
+            (change)="onFile2Change($event)">
+        <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">Query Workload is required.</div>
+        </div>
+    </div>
+ <div class="form-group">
+      <label for="file2">Iterations</label>
+       <input  value="{{iters}}" style="display:table-cell; width:100%; " >
+    </div>
+    <button class="btn btn-primary" type="submit">Find my Design</button>
+      <h5 style="margin-top: 20px">Objective Estimates for the Optimal Design</h5>
+<dl>
+  <ng-template ngFor let-item [ngForOf]="solution" >
+      <dt>{{item.param}}</dt>
+      <dd>{{item.val}}</dd>
+   </ng-template>
+</dl>
+</form>
+<!--    <h5>Optimal Design</h5>-->
+<!--    <pre>-->
+<!--  <code [highlight]="code"></code>-->
+<!--</pre>-->
+  </div>
+  <div class="col-3">
+    <h5>Optimal Design</h5>
+    <pre>
+  <code [highlight]="code" style="max-height: 400px"></code>
+</pre>
+  </div>
+</div>
+</div>
+

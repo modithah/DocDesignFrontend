@@ -1,0 +1,15 @@
+dl>dt {
+  float: left;
+  width: 200px;
+  overflow: hidden;
+  clear: left;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+dl>dd {
+  /*margin-left: 120px;*/
+  text-align: right;
+}

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ChangeContext, Options} from '@angular-slider/ngx-slider';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -86,7 +86,9 @@ export class HomeComponent implements OnInit {
     hidePointerLabels: true
   };
   map = new Map([['Query', 0.25], ['Size', 0.25], ['Depth', 0.25], ['Heterogeneity', 0.25]]);
-  solution ={};
+  solution = {};
+  workloadToUpload: File = null;
+
   myForm = new FormGroup({
     file: new FormControl('', [Validators.required]),
     file2: new FormControl('', [Validators.required]),
@@ -126,6 +128,14 @@ export class HomeComponent implements OnInit {
       this.myForm.patchValue({
         fileSource: file
       });
+      const endpoint = 'http://localhost:4567/uploadUsecase';
+      const formData: FormData = new FormData();
+      formData.append('uploaded_file', file, file.name);
+      return this.http
+      .post(endpoint, formData)
+      .subscribe(res => {
+        alert(JSON.stringify(res));
+      });
     }
   }
 
@@ -135,11 +145,20 @@ export class HomeComponent implements OnInit {
       this.myForm.patchValue({
         fileSource2: file
       });
+      const endpoint = 'http://localhost:4567/uploadWorkload';
+      const formData: FormData = new FormData();
+      formData.append('uploaded_file', file, file.name);
+      return this.http
+      .post(endpoint, formData)
+      .subscribe(res => {
+        alert(JSON.stringify(res));
+      });
     }
   }
 
   submit() {
-    const formData = new FormData();
+    // const formData = new FormData();
+    // formData.append('file', this.myForm.get('fileSource').value);
     this.spinner.show();
     // setTimeout(() => {
     //   if (this.map.get('Query') === 0.25){
@@ -247,8 +266,16 @@ export class HomeComponent implements OnInit {
     //   }
     //   this.spinner.hide();
     // }, 5000);
-    // formData.append('file', this.myForm.get('fileSource').value);
-    this.http.get('http://localhost:4567/run/2')
+    const jsonObject = {};
+    this.map.forEach((value, key) => {
+       jsonObject[key] = value;
+});
+    this.http.post('http://localhost:4567/weights/', jsonObject)
+      .subscribe(res => {
+        console.log(res);
+      });
+
+    this.http.get('http://localhost:4567/run/' + this.iters)
       .subscribe(res => {
         console.log(res);
         // alert('Uploaded Successfully.');

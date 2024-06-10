@@ -52,7 +52,7 @@
     </div>
  <div class="form-group">
       <label for="file2">Iterations</label>
-       <input  value="{{iters}}" style="display:table-cell; width:100%; " >
+       <input   [(ngModel)]="iters"  style="display:table-cell; width:100%; " [ngModelOptions]="{standalone: true}">
     </div>
     <button class="btn btn-primary" type="submit">Find my Design</button>
       <h5 style="margin-top: 20px">Objective Estimates for the Optimal Design</h5>

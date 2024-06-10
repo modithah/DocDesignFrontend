@@ -1,0 +1,55 @@
+<div class="jumbotron" style="background-color: #fff; height: calc(95vh);" xmlns="http://www.w3.org/1999/html">
+
+<div class="row">
+  <div class="col-2">
+    <p>Remaining Atoms</p>
+    <ng-template ngFor let-item [ngForOf]="atoms" >
+      <span>{{item}}</span><br/>
+   </ng-template>
+  </div>
+  <div class="col-2">
+    <p>Remaining Relationships</p>
+    <ng-template ngFor let-item [ngForOf]="relationships" >
+      <span>{{item}}</span><br/>
+   </ng-template>
+  </div>
+  <div class="col-3">
+    <div class="row">
+      <button class="btn btn-primary" (click)="addCollection()" >Add Collection</button>
+      <button class="btn btn-primary" (click)="evaluate()" >Evaluate my Design</button>
+    </div>
+    <div class="row">
+<!--      <tree-root [nodes]="nodes" [options]="options"></tree-root>-->
+     <div id='treeparent'>
+                 <ejs-treeview  id='tree' #treevalidate [fields]='field' (nodeClicked)='nodeclicked($event)'></ejs-treeview>
+                 </div>
+                 <ejs-contextmenu #contentmenutree id='contentmenutree' target='#tree' [items]='menuItems' (beforeOpen)='beforeopen($event)' (select)='menuclick($event)'></ejs-contextmenu>
+    </div>
+  </div>
+<!--  <div class="col-3">-->
+<!--    <div class="row">-->
+<!--      <div class="form-group">-->
+<!--      <label for="file2">Upload design JSON</label>-->
+<!--      <input-->
+<!--            id="file2"-->
+<!--            type="file"-->
+<!--            class="form-control"-->
+<!--            (change)="onFile2Change($event)">-->
+<!--&lt;!&ndash;        <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div *ngIf="f.file.errors.required">Query Workload is required.</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    </div>-->
+<!--      <button class="btn btn-primary" (click)="evaluate()" >Evaluate my Design</button>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--&lt;!&ndash;      <tree-root [nodes]="nodes" [options]="options"></tree-root>&ndash;&gt;-->
+<!--     <div id='treeparent'>-->
+<!--                 <ejs-treeview  id='tree' #treevalidate [fields]='field' (nodeClicked)='nodeclicked($event)'></ejs-treeview>-->
+<!--                 </div>-->
+<!--                 <ejs-contextmenu #contentmenutree id='contentmenutree' target='#tree' [items]='menuItems' (beforeOpen)='beforeopen($event)' (select)='menuclick($event)'></ejs-contextmenu>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+
+
+</div>
